@@ -347,6 +347,14 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
   Widget _buildResolutionSelectionRow(String name, String url) {
     final bool isSelected =
         url == betterPlayerController!.betterPlayerDataSource!.url;
+    try{
+      if(name.split('~').length > 1){
+        name = name.split('~')[0];
+      }
+    }
+    catch(e){
+      name = name;
+    }
     return BetterPlayerMaterialClickableWidget(
       onTap: () {
         Navigator.of(context).pop();
