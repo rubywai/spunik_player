@@ -374,7 +374,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
                 )),
             const SizedBox(width: 16),
             Text(
-              "Hello",
+              name,
               style: _getOverflowMenuElementTextStyle(isSelected),
             ),
           ],
