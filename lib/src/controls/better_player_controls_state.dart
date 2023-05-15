@@ -317,7 +317,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
     final int bitrate = track.bitrate ?? 0;
     final String mimeType = (track.mimeType ?? '').replaceAll('video/', '');
     final String trackName = preferredName ??
-        "$height p";
+        "${height}p";
 
     final BetterPlayerAsmsTrack? selectedTrack =
         betterPlayerController!.betterPlayerAsmsTrack;
