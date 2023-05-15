@@ -356,7 +356,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
         url == betterPlayerController!.betterPlayerDataSource!.url;
     try{
       if(name.split('~').length > 1){
-        name = name.split('~')[0];
+        name = name.split('~')[0] + 'p';
       }
     }
     catch(e){
