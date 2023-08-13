@@ -1,13 +1,13 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/jhomlala/betterplayer/master/media/logo.png">
+<img src="https://yt3.ggpht.com/UOXt-4RfUu8uJsqnzrLPp05g33U9CWC7GEIHKQ7VX5DgenFqnqY0lSMWAVli_HbWOLmR1n18J_4=s600-c-k-c0x00ffffff-no-rj-rp-mo">
 </p>
 
-# Better Player
+# Spunik Player(A continue of better player)
 [![pub package](https://img.shields.io/pub/v/better_player.svg)](https://pub.dartlang.org/packages/better_player)
 [![pub package](https://img.shields.io/github/license/jhomlala/betterplayer.svg?style=flat)](https://github.com/jhomlala/betterplayer)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue.svg)](https://github.com/jhomlala/betterplayer)
 
-Advanced video player based on video_player and Chewie. It's solves many typical use cases and it's easy to run.
+Advanced video player based on native player. It's solves many typical use cases and it's easy to run.
 
 <table>
    <tr>
@@ -66,33 +66,7 @@ Advanced video player based on video_player and Chewie. It's solves many typical
     </tr>	
 </table>
 
-## Introduction
-This plugin is based on [Chewie](https://github.com/brianegan/chewie). Chewie is awesome plugin and works well in many cases. Better Player is a continuation of ideas introduced in Chewie. Better player fix common bugs, adds more configuration options and solves typical use cases. 
 
-**Features:**  
-✔️ Fixed common bugs  
-✔️ Added advanced configuration options  
-✔️ Refactored player controls  
-✔️ Playlist support  
-✔️ Video in ListView support  
-✔️ Subtitles support: (formats: SRT, WEBVTT with HTML tags support; subtitles from HLS; multiple subtitles for video)  
-✔️ HTTP Headers support  
-✔️ BoxFit of video support  
-✔️ Playback speed support  
-✔️ HLS support (track, subtitles (also segmented), audio track selection)  
-✔️ DASH support (track, subtitles, audio track selection)     
-✔️ Alternative resolution support  
-✔️ Cache support  
-✔️ Notifications support  
-✔️ Picture in Picture support     
-✔️ DRM support (token, Widevine, FairPlay EZDRM).    
-✔️ ... and much more!  
-
-
-## Documentation
-* [Official documentation](https://jhomlala.github.io/betterplayer/)
-* [Example application](https://github.com/jhomlala/betterplayer/tree/master/example)
-* [API reference](https://pub.dev/documentation/better_player/latest/better_player/better_player-library.html)
 
 
 ## Important information
