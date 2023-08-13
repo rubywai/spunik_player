@@ -2,7 +2,7 @@
 <img src="https://yt3.ggpht.com/UOXt-4RfUu8uJsqnzrLPp05g33U9CWC7GEIHKQ7VX5DgenFqnqY0lSMWAVli_HbWOLmR1n18J_4=s600-c-k-c0x00ffffff-no-rj-rp-mo">
 </p>
 
-# Spunik Player(A continue of better player)
+# Spunik Player(A continuation of better player)
 [![pub package](https://img.shields.io/pub/v/better_player.svg)](https://pub.dartlang.org/packages/better_player)
 [![pub package](https://img.shields.io/github/license/jhomlala/betterplayer.svg?style=flat)](https://github.com/jhomlala/betterplayer)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue.svg)](https://github.com/jhomlala/betterplayer)
