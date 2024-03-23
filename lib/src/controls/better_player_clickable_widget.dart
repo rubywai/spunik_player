@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:better_player/src/widget/sputnik_inkwell.dart';
 import 'package:flutter/material.dart';
 
 class BetterPlayerMaterialClickableWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class BetterPlayerMaterialClickableWidget extends StatelessWidget {
       ),
       clipBehavior: Clip.hardEdge,
       color: Colors.transparent,
-      child: InkWell(
+      child: SputnikInkWell(
         onTap: onTap,
         child: child,
       ),

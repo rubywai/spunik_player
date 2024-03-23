@@ -88,7 +88,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
                   betterPlayerControlsConfiguration.qualitiesIcon,
                   translations.overflowMenuQuality, () {
                 Navigator.of(context).pop();
-                _showQualitiesSelectionWidget();
+                showQualitiesSelectionWidget();
               }),
             if (betterPlayerControlsConfiguration.enableAudioTracks)
               _buildMoreOptionsListRow(
@@ -267,7 +267,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
   ///Build both track and resolution selection
   ///Track selection is used for HLS / DASH videos
   ///Resolution selection is used for normal videos
-  void _showQualitiesSelectionWidget() {
+  void showQualitiesSelectionWidget() {
     // HLS / DASH
     final List<String> asmsTrackNames =
         betterPlayerController!.betterPlayerDataSource!.asmsTrackNames ?? [];

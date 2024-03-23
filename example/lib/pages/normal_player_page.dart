@@ -18,8 +18,12 @@ class _NormalPlayerPageState extends State<NormalPlayerPage> {
         BetterPlayerConfiguration(
       aspectRatio: 16 / 9,
       fit: BoxFit.contain,
+      fullScreenByDefault: true,
       autoPlay: true,
       looping: true,
+      controlsConfiguration: BetterPlayerControlsConfiguration(
+        playerTheme: BetterPlayerTheme.tv,
+      ),
       deviceOrientationsAfterFullScreen: [
         DeviceOrientation.portraitDown,
         DeviceOrientation.portraitUp
@@ -40,14 +44,16 @@ class _NormalPlayerPageState extends State<NormalPlayerPage> {
       appBar: AppBar(
         title: Text("Normal player page"),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: BetterPlayer(controller: _betterPlayerController),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: BetterPlayer(controller: _betterPlayerController),
+            ),
+          ],
+        ),
       ),
     );
   }

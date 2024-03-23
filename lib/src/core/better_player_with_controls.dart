@@ -10,6 +10,8 @@ import 'package:better_player/src/subtitles/better_player_subtitles_drawer.dart'
 import 'package:better_player/src/video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
+import '../controls/better_player_tv_control.dart';
+
 class BetterPlayerWithControls extends StatefulWidget {
   final BetterPlayerController? controller;
 
@@ -178,7 +180,11 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
             betterPlayerController, onControlsVisibilityChanged);
       } else if (playerTheme == BetterPlayerTheme.material) {
         return _buildMaterialControl();
-      } else if (playerTheme == BetterPlayerTheme.cupertino) {
+      }
+      else if(playerTheme == BetterPlayerTheme.tv){
+        return _buildMaterialRVControl();
+      }
+      else if (playerTheme == BetterPlayerTheme.cupertino) {
         return _buildCupertinoControl();
       }
     }
@@ -193,6 +199,12 @@ class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
     );
   }
 
+  Widget _buildMaterialRVControl() {
+    return BetterPlayerMaterialTVControls(
+      onControlsVisibilityChanged: onControlsVisibilityChanged,
+      controlsConfiguration: controlsConfiguration,
+    );
+  }
   Widget _buildCupertinoControl() {
     return BetterPlayerCupertinoControls(
       onControlsVisibilityChanged: onControlsVisibilityChanged,
