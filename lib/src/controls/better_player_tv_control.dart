@@ -77,12 +77,25 @@ class _BetterPlayerMaterialTVControlsState
         child: _buildErrorWidget(),
       );
     }
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        if (_wasLoading) Center(child: _buildLoadingWidget()),
-        Positioned(bottom: 0, left: 0, right: 0, child: _buildBottomBar()),
-      ],
+    return GestureDetector(
+      onTap: (){
+        if(_controlVisible){
+          _onPlayerHide();
+        }
+        else{
+          _onPlayerShowWithTimer();
+        }
+      },
+      child: AbsorbPointer(
+        absorbing: !_controlVisible,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (_wasLoading) Center(child: _buildLoadingWidget()),
+            Positioned(bottom: 0, left: 0, right: 0, child: _buildBottomBar()),
+          ],
+        ),
+      ),
     );
   }
 
@@ -95,7 +108,7 @@ class _BetterPlayerMaterialTVControlsState
   @override
   void initState() {
     super.initState();
-    _onPlayerShow();
+    _onPlayerShowWithTimer();
   }
 
   void _dispose() {
@@ -422,5 +435,13 @@ class _BetterPlayerMaterialTVControlsState
     setState(() {
       _controlVisible = true;
     });
+  }
+  //hide after 3 second
+  void _onPlayerShowWithTimer() async {
+    setState(() {
+      _controlVisible = true;
+    });
+    await Future.delayed(Duration(seconds: 3));
+    _onPlayerHide();
   }
 }
