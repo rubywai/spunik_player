@@ -20,7 +20,6 @@ class BetterPlayerMaterialTVControls extends StatefulWidget {
   ///Callback used to send information if player bar is hidden or not
   final Function(bool visbility) onControlsVisibilityChanged;
 
-
   ///Controls config
   final BetterPlayerControlsConfiguration controlsConfiguration;
 
@@ -78,11 +77,10 @@ class _BetterPlayerMaterialTVControlsState
       );
     }
     return GestureDetector(
-      onTap: (){
-        if(_controlVisible){
+      onTap: () {
+        if (_controlVisible) {
           _onPlayerHide();
-        }
-        else{
+        } else {
           _onPlayerShowWithTimer();
         }
       },
@@ -189,50 +187,63 @@ class _BetterPlayerMaterialTVControlsState
     if (!betterPlayerController!.controlsEnabled) {
       return const SizedBox();
     }
-    return _controlVisible ? Container(
-      color: Colors.grey,
-      height: _controlsConfiguration.controlBarHeight + 20.0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            flex: 75,
-            child: Row(
-              children: [
-                SputnikInkWell(
-                  onTap: () {
-                    _onPlayerHide();
-                  },
-                  child: Icon(Icons.close,color: Colors.white,),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if(!_controlVisible)
+        KeyboardListener(
+          onKeyEvent: (key){
+            _onPlayerShow();
+          },
+          focusNode: FocusNode(),
+          child: Center(),
+        ),
+        Visibility(
+          visible: _controlVisible,
+          child: Container(
+            color: Colors.grey,
+            height: _controlsConfiguration.controlBarHeight + 20.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  flex: 75,
+                  child: Row(
+                    children: [
+                      SputnikInkWell(
+                        onTap: () {
+                          _onPlayerHide();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                      ),
+                      _buildPlayPause(_controller!),
+                      _controlsConfiguration.enableProgressText
+                          ? _buildPosition()
+                          : const SizedBox(),
+                      _buildMoreButton(),
+                      if (_controlsConfiguration.enableMute)
+                        _buildMuteButton(_controller)
+                      else
+                        const SizedBox(),
+                    ],
+                  ),
                 ),
-                _buildPlayPause(_controller!),
-                _controlsConfiguration.enableProgressText
-                    ? _buildPosition()
-                    : const SizedBox(),
-                _buildMoreButton(),
-                if (_controlsConfiguration.enableMute)
-                  _buildMuteButton(_controller)
+                if (_betterPlayerController!.isLiveStream())
+                  const SizedBox()
                 else
-                  const SizedBox(),
+                  _controlsConfiguration.enableProgressBar
+                      ? _buildProgressBar()
+                      : const SizedBox(),
+
               ],
             ),
           ),
-          if (_betterPlayerController!.isLiveStream())
-            const SizedBox()
-          else
-            _controlsConfiguration.enableProgressBar
-                ? _buildProgressBar()
-                : const SizedBox(),
-        ],
-      ),
-    ) : KeyboardListener(
-        focusNode: FocusNode(),
-        onKeyEvent: (key){
-          if(!_controlVisible){
-            _onPlayerShow();
-          }
-        },
-        child: SizedBox.shrink());
+        ),
+      ],
+    );
   }
 
   Widget _buildMuteButton(
@@ -259,6 +270,7 @@ class _BetterPlayerMaterialTVControlsState
 
   Widget _buildPlayPause(VideoPlayerController controller) {
     return SputnikInkWell(
+      key: const Key("better_player_material_controls_play_pause_button"),
       onTap: _onPlayPause,
       child: Container(
         height: double.infinity,
@@ -348,7 +360,7 @@ class _BetterPlayerMaterialTVControlsState
     }
 
     if (_controller!.value.isPlaying) {
-      // changePlayerControlsNotVisible(false);
+      changePlayerControlsNotVisible(false);
       _hideTimer?.cancel();
       _betterPlayerController!.pause();
     } else {
@@ -375,19 +387,17 @@ class _BetterPlayerMaterialTVControlsState
   }
 
   void _updateState() {
-    if (mounted) {
-      if (!controlsNotVisible ||
-          isVideoFinished(_controller!.value) ||
-          _wasLoading ||
-          isLoading(_controller!.value)) {
-        setState(() {
-          _latestValue = _controller!.value;
-          if (isVideoFinished(_latestValue) &&
-              _betterPlayerController?.isLiveStream() == false) {
-            // changePlayerControlsNotVisible(false);
-          }
-        });
-      }
+    if (!controlsNotVisible ||
+        isVideoFinished(_controller!.value) ||
+        _wasLoading ||
+        isLoading(_controller!.value)) {
+      setState(() {
+        _latestValue = _controller!.value;
+        if (isVideoFinished(_latestValue) &&
+            _betterPlayerController?.isLiveStream() == false) {
+          // changePlayerControlsNotVisible(false);
+        }
+      });
     }
   }
 
@@ -436,8 +446,10 @@ class _BetterPlayerMaterialTVControlsState
       _controlVisible = true;
     });
   }
+
   //hide after 3 second
   void _onPlayerShowWithTimer() async {
+    changePlayerControlsNotVisible(false);
     setState(() {
       _controlVisible = true;
     });

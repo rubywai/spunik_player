@@ -56,11 +56,14 @@ class _BetterPlayerTVProgressBarState
   }
 
   void _updateSliderValue() {
-    final position = widget.controller!.value.position.inMilliseconds;
-    final duration = widget.controller!.value.duration!.inMilliseconds;
-    setState(() {
-      _currentSliderValue = (position / duration) * 100.0;
-    });
+    if(widget.controller!= null) {
+      final position = widget.controller!.value.position.inMilliseconds;
+      final duration = widget.controller!.value.duration!.inMilliseconds;
+      setState(() {
+        if(_currentSliderValue <= 100)
+        _currentSliderValue = (position / duration) * 100.0;
+      });
+    }
   }
 
   void _seekToRelativePosition(double value) async {
