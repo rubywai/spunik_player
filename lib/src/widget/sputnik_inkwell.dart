@@ -43,7 +43,7 @@ class _SputnikInkWellState extends State<SputnikInkWell> {
       onTap: widget.onTap,
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           border: Border.all(
             color: _isFocused ? Colors.blue : Colors.transparent,
