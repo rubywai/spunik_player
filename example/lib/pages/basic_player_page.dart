@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:better_player/better_player.dart';
 import 'package:better_player_example/constants.dart';
 import 'package:better_player_example/utils.dart';
@@ -9,6 +11,7 @@ class BasicPlayerPage extends StatefulWidget {
 }
 
 class _BasicPlayerPageState extends State<BasicPlayerPage> {
+  late BetterPlayerController _controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +46,20 @@ class _BasicPlayerPageState extends State<BasicPlayerPage> {
             future: Utils.getFileUrl(Constants.fileTestVideoUrl),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.data != null) {
-                return BetterPlayer.file(snapshot.data!);
+                return FutureBuilder<BetterPlayerController>(
+                  future: _getController(),
+                  builder: (context,snapshot){
+                    if(snapshot.hasData){
+                      return AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: BetterPlayer(controller: snapshot.data!),
+                      );
+                    }
+                    return  Center(
+                      child: Text('${snapshot.data}'),
+                    );
+                  },
+                );
               } else {
                 return const SizedBox();
               }
@@ -52,5 +68,29 @@ class _BasicPlayerPageState extends State<BasicPlayerPage> {
         ],
       ),
     );
+  }
+  Future<BetterPlayerController> _getController() async{
+    var file = File(await Utils.getFileUrl(Constants.fileTestVideoUrl));
+    BetterPlayerDataSource betterPlayerDataSource =
+    BetterPlayerDataSource(BetterPlayerDataSourceType.file, file.path,);
+    BetterPlayerConfiguration betterPlayerConfiguration =   BetterPlayerConfiguration(
+        fit: BoxFit.contain,
+        fullScreenByDefault: false,
+        autoPlay: true,
+        controlsConfiguration: BetterPlayerControlsConfiguration(
+            playerTheme: BetterPlayerTheme.material,
+            overflowMenuCustomItems: [],
+            enableOverflowMenu: false,
+            enableQualities: false,
+            enablePlaybackSpeed: false,
+            enableAudioTracks: false,
+            enableSubtitles: false,
+            muteIcon: Icons.volume_up_sharp,
+            unMuteIcon: Icons.volume_off
+        )
+    );
+    _controller = BetterPlayerController(betterPlayerConfiguration);
+    _controller.setupDataSource(betterPlayerDataSource);
+    return _controller;
   }
 }

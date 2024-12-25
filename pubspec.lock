@@ -118,13 +118,13 @@ packages:
     source: hosted
     version: "0.8.5+3"
   fwfh_text_style:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: fwfh_text_style
-      sha256: f0883ccb64b7bb3f2a7a091542c2e834fc3e2a6aa54158f46b3c43b55675d8f7
+      sha256: "5f8b587fd223a6bf14aad3d3da5e7ced0628becbd0768f8e7ae25ff6b9f3d2ec"
       url: "https://pub.dev"
     source: hosted
-    version: "2.22.8+3"
+    version: "2.23.8"
   html:
     dependency: transitive
     description:
@@ -197,14 +197,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  logging:
-    dependency: transitive
-    description:
-      name: logging
-      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -452,4 +444,4 @@ packages:
     version: "6.3.0"
 sdks:
   dart: ">=3.2.0-0 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.14.0-0"

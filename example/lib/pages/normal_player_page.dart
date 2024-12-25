@@ -22,7 +22,7 @@ class _NormalPlayerPageState extends State<NormalPlayerPage> {
       autoPlay: true,
       looping: true,
       controlsConfiguration: BetterPlayerControlsConfiguration(
-        playerTheme: BetterPlayerTheme.tv,
+        playerTheme: BetterPlayerTheme.material,
       ),
       deviceOrientationsAfterFullScreen: [
         DeviceOrientation.portraitDown,
