@@ -436,12 +436,14 @@ class _BetterPlayerMaterialTVControlsState
   }
 
   void _onPlayerHide() {
+    if(mounted)
     setState(() {
       _controlVisible = false;
     });
   }
 
   void _onPlayerShow() async {
+    if(mounted)
     setState(() {
       _controlVisible = true;
     });
