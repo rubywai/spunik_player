@@ -18,11 +18,10 @@ class _NormalPlayerPageState extends State<NormalPlayerPage> {
         BetterPlayerConfiguration(
       aspectRatio: 16 / 9,
       fit: BoxFit.contain,
-      fullScreenByDefault: true,
       autoPlay: true,
       looping: true,
       controlsConfiguration: BetterPlayerControlsConfiguration(
-        playerTheme: BetterPlayerTheme.material,
+        playerTheme: BetterPlayerTheme.tv,
       ),
       deviceOrientationsAfterFullScreen: [
         DeviceOrientation.portraitDown,

@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:better_player/src/configuration/better_player_controls_configuration.dart';
-import 'package:better_player/src/controls/better_player_clickable_widget.dart';
 import 'package:better_player/src/controls/better_player_controls_state.dart';
-import 'package:better_player/src/controls/better_player_material_progress_bar.dart';
-import 'package:better_player/src/controls/better_player_multiple_gesture_detector.dart';
 import 'package:better_player/src/controls/better_player_progress_colors.dart';
 import 'package:better_player/src/core/better_player_controller.dart';
 import 'package:better_player/src/core/better_player_utils.dart';
@@ -12,7 +9,6 @@ import 'package:better_player/src/widget/sputnik_inkwell.dart';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'better_player_tv_progress_bar.dart';
 
@@ -190,14 +186,14 @@ class _BetterPlayerMaterialTVControlsState
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if(!_controlVisible)
-        KeyboardListener(
-          onKeyEvent: (key){
-            _onPlayerShow();
-          },
-          focusNode: FocusNode(),
-          child: Center(),
-        ),
+        if (!_controlVisible)
+          KeyboardListener(
+            onKeyEvent: (key) {
+              _onPlayerShow();
+            },
+            focusNode: FocusNode(),
+            child: Center(),
+          ),
         Visibility(
           visible: _controlVisible,
           child: Container(
@@ -210,6 +206,7 @@ class _BetterPlayerMaterialTVControlsState
                   flex: 75,
                   child: Row(
                     children: [
+                      _buildExpandButton(),
                       SputnikInkWell(
                         onTap: () {
                           _onPlayerHide();
@@ -237,7 +234,6 @@ class _BetterPlayerMaterialTVControlsState
                   _controlsConfiguration.enableProgressBar
                       ? _buildProgressBar()
                       : const SizedBox(),
-
               ],
             ),
           ),
@@ -266,6 +262,42 @@ class _BetterPlayerMaterialTVControlsState
         color: _controlsConfiguration.iconsColor,
       ),
     );
+  }
+
+  Widget _buildExpandButton() {
+    return Padding(
+      padding: EdgeInsets.only(right: 12.0),
+      child: SputnikInkWell(
+        onTap: _onExpandCollapse,
+        child: AnimatedOpacity(
+          opacity: controlsNotVisible ? 0.0 : 1.0,
+          duration: _controlsConfiguration.controlsHideTime,
+          child: Container(
+            height: _controlsConfiguration.controlBarHeight,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: Icon(
+                _betterPlayerController!.isFullScreen
+                    ? _controlsConfiguration.fullscreenDisableIcon
+                    : _controlsConfiguration.fullscreenEnableIcon,
+                color: _controlsConfiguration.iconsColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onExpandCollapse() {
+    changePlayerControlsNotVisible(true);
+    _betterPlayerController!.toggleFullScreen();
+    _showAfterExpandCollapseTimer =
+        Timer(_controlsConfiguration.controlsHideTime, () {
+      setState(() {
+        cancelAndRestartTimer();
+      });
+    });
   }
 
   Widget _buildPlayPause(VideoPlayerController controller) {
@@ -436,17 +468,17 @@ class _BetterPlayerMaterialTVControlsState
   }
 
   void _onPlayerHide() {
-    if(mounted)
-    setState(() {
-      _controlVisible = false;
-    });
+    if (mounted)
+      setState(() {
+        _controlVisible = false;
+      });
   }
 
   void _onPlayerShow() async {
-    if(mounted)
-    setState(() {
-      _controlVisible = true;
-    });
+    if (mounted)
+      setState(() {
+        _controlVisible = true;
+      });
   }
 
   //hide after 3 second

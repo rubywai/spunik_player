@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:better_player/better_player.dart';
 import 'package:better_player/src/controls/better_player_clickable_widget.dart';
-import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -316,8 +315,7 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
     final int height = track.height ?? 0;
     final int bitrate = track.bitrate ?? 0;
     final String mimeType = (track.mimeType ?? '').replaceAll('video/', '');
-    final String trackName = preferredName ??
-        "${height}p";
+    final String trackName = preferredName ?? "${height}p";
 
     final BetterPlayerAsmsTrack? selectedTrack =
         betterPlayerController!.betterPlayerAsmsTrack;
@@ -354,12 +352,11 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
   Widget _buildResolutionSelectionRow(String name, String url) {
     final bool isSelected =
         url == betterPlayerController!.betterPlayerDataSource!.url;
-    try{
-      if(name.split('~').length > 1){
+    try {
+      if (name.split('~').length > 1) {
         name = name.split('~')[0];
       }
-    }
-    catch(e){
+    } catch (e) {
       name = name;
     }
     return BetterPlayerMaterialClickableWidget(
